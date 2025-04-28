@@ -32,16 +32,25 @@ for file in "$DOTFILES_DIR"/.*; do
     echo "Linked $target → $file"
 done
 
-echo "Linking .config files..."
+echo "Linking .config files and folders..."
 
 mkdir -p "$CONFIG_DIR"
-for config in "$DOTFILES_DIR/.config"/*; do
+
+for config in "$DOTFILES_DIR/.config/"*; do
     configname=$(basename "$config")
     target="$CONFIG_DIR/$configname"
 
-    backup_if_needed "$target"
-    ln -sf "$config" "$target"
-    echo "Linked $target → $config"
+    if [ -d "$config" ]; then
+        # It's a directory
+        backup_if_needed "$target"
+        ln -sfn "$config" "$target"
+        echo "Linked folder $target → $config"
+    elif [ -f "$config" ]; then
+        # It's a file
+        backup_if_needed "$target"
+        ln -sf "$config" "$target"
+        echo "Linked file $target → $config"
+    fi
 done
 
 echo "Linking .ssh files..."
