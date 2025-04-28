@@ -1,0 +1,6 @@
+backup/
+.bash_history
+
+.ssh/*
+!.ssh/*.pub
+!.ssh/config

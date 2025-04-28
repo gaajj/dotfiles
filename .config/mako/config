@@ -1,0 +1,45 @@
+
+# Mako notification config - Tokyo Night Storm theme
+
+# Font settings
+font=JetBrainsMono Nerd Font 11
+
+# General Colors (Tokyo Night Storm)
+background-color=#24283BAA
+text-color=#C0CAF5FF
+border-color=#7AA2F7FF
+progress-color=#7DCFFFCC
+
+# Dimensions and layout
+width=320
+height=120
+padding=12
+margin=12
+border-radius=10
+border-size=2
+
+# Position on screen (top-right, bottom-right, etc.)
+anchor=top-right
+
+# Icons
+icons=1
+max-icon-size=64
+
+# Timeouts (milliseconds)
+default-timeout=6000
+
+# Urgency-specific settings
+[urgency=low]
+border-color=#565F89FF
+
+[urgency=normal]
+border-color=#7AA2F7FF
+
+[urgency=high]
+border-color=#F7768EFF
+#default-timeout=0 # Persist until clicked
+
+# Category-specific (optional example)
+[category=volume]
+default-timeout=2000
+
