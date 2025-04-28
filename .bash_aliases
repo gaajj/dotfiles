@@ -31,3 +31,5 @@ alias ping='ping -c3'
 alias tmux='tmux -2'
 
 alias backupcheck='sudo du -sh /backup/rsnapshot/* | sort'
+
+alias ff='fastfetch'
