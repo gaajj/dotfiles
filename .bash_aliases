@@ -4,9 +4,12 @@ alias pacc='sudo pacman -Sy --noconfirm'
 
 alias kys='shutdown -h now'
 
+alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+
+alias grep='grep --color=auto'
 
 alias mkdir='mkdir -p -v'
 alias rmdir='rmdir -v'
