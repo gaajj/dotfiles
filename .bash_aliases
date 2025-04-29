@@ -1,6 +1,6 @@
 alias update='sudo pacman -Syu --noconfirm'
-alias pac='sudo pacman -Sy'
-alias pacc='sudo pacman -Sy --noconfirm'
+alias pac='sudo pacman -S'
+alias pacc='sudo pacman -S --noconfirm'
 
 alias kys='shutdown -h now'
 
