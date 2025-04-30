@@ -5,9 +5,10 @@ alias pacc='sudo pacman -S --noconfirm'
 alias kys='shutdown -h now'
 
 alias ls='ls --color=auto'
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+alias ll='ls -lF'
+alias la='ls -AF'
+alias lla='ls -lAF'
+alias l='ls -F'
 
 alias grep='grep --color=auto'
 
