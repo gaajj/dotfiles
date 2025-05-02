@@ -2,22 +2,34 @@
 
 Welcome to my personal dotfiles repository.
 
-This setup is designed for a clean, minimal, and dynamic Arch Linux environment using:
+This setup is designed for a clean, minimal, secure,
+and dynamic Arch Linux environment, centered around:
 
-- Hyprland (wayland compositor)
-- Fuzzel (launcher)
-- Kitty (terminal emulator)
-- Mako (notification daemon)
-- Custom systemd user services
-- SSH configuration
-- Bash shell customization
+- **Hyprland** (Wayland compositor)
+- **Fuzzel** (application and clipboard launcher)
+- **Kitty** (GPU-accelerated terminal emulator)
+- **Mako** (notification daemon)
+- **Fastfetch** (system info display)
+- **Neovim** (as primary editor, configured with LSP, formatter, and linters)
+- **Custom Hyprland autostart & scripting setup**
+- **Themed consistently with Tokyo Night Storm**
+
+## Features
+
+- Modular, maintainable configs (e.g. `vars.conf`, `keybinds.conf`, `styling.conf`)
+- Fuzzel launchers for apps and clipboard history
+- Screenshot scripts with auto-copy and editing
+- Fastfetch autostarts in a floating terminal
+- Dynamic wallpapers and 3-monitor layout with Hyprland
+- Kitty & Mako themed with Tokyo Night Storm
+- Neovim with full LSP, formatting, linting, and plugin support
 
 ## Installation
 
 Clone the repository and run the install script:
 
 ```bash
-git clone git@github.com:yourusername/dotfiles.git ~/.dotfiles
+git clone git@github.com:gaajj/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 bash install.sh
 ```
@@ -28,7 +40,15 @@ The script will:
 - Symlink the new configuration files into place
 - Offer to enable custom systemd user services
 
-## Notes
-- Backups of old dotfiles are stored in .dotfiles/backup/
+## Directory Overview
 
-**This repo is mainly for my own setups but feel free to explore and adapt it.**
+```bash
+.config/
+├── fastfetch/       # System info display config
+├── fuzzel/          # Application and clipboard launcher configs
+├── hypr/            # Hyprland configs (split by function)
+├── kitty/           # Terminal color theme and font settings
+├── mako/            # Notification appearance and behavior
+├── nvim/            # Neovim full setup (LSP, plugins, theming)
+├── themes/          # Global color palette (Tokyo Night Storm)
+```
