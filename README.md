@@ -5,6 +5,9 @@ Welcome to my personal dotfiles repository.
 This setup is designed for a clean, minimal, secure,
 and dynamic Arch Linux environment, centered around:
 
+> ⚠️ **Disclaimer**: These dotfiles are tailored to my personal setup and preferences.  
+> Use them at your own risk. Make sure to review and adjust any scripts or configs before applying them to your system.
+
 - **Hyprland** (Wayland compositor)
 - **Fuzzel** (application and clipboard launcher)
 - **Kitty** (GPU-accelerated terminal emulator)
