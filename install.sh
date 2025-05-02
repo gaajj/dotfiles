@@ -53,19 +53,15 @@ for config in "$DOTFILES_DIR/.config/"*; do
     fi
 done
 
-echo "Linking .ssh files..."
+echo "Linking .ssh/config file..."
 
-if [ -d "$DOTFILES_DIR/.ssh" ]; then
+if [ -f "$DOTFILES_DIR/.ssh/config" ]; then
     mkdir -p "$SSH_DIR"
 
-    for sshfile in "$DOTFILES_DIR/.ssh/"*; do
-        sshfilename=$(basename "$sshfile")
-        target="$SSH_DIR/$sshfilename"
-
-        backup_if_needed "$target"
-        ln -sf "$sshfile" "$target"
-        echo "Linked $target → $sshfile"
-    done
+    target="$SSH_DIR/config"
+    backup_if_needed "$target"
+    ln -sf "$DOTFILES_DIR/.ssh/config" "$target"
+    echo "Linked $target → $DOTFILES_DIR/.ssh/config"
 fi
 
 echo "Setting up custom systemd user services..."
