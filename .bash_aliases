@@ -2,7 +2,7 @@ alias update='sudo pacman -Syu --noconfirm'
 alias pac='sudo pacman -S'
 alias pacc='sudo pacman -S --noconfirm'
 
-alias kys='shutdown -h now'
+alias kys='sudo systemctl hibernate'
 
 alias ls='ls --color=auto'
 alias ll='ls -lF'
