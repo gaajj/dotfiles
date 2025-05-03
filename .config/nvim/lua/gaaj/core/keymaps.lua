@@ -27,3 +27,6 @@ keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer
 -- File explorer
 keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
 
+-- C#
+keymap.set("n", "<leader>cb", ":Build<CR>", { desc = "C#: Build project" })
+keymap.set("n", "<leader>cr", ":Run<CR>", { desc = "C#: Run project" })
