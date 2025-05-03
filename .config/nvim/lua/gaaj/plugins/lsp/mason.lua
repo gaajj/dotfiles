@@ -16,6 +16,7 @@ return {
         "bashls",
         "phpactor",
         "jdtls",
+        "omnisharp",
       },
     })
   end,

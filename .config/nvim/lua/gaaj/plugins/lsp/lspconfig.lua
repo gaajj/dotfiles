@@ -62,9 +62,22 @@ return {
     -- Configure all installed LSPs with default handler
     mason_lspconfig.setup_handlers({
       function(server)
-        lspconfig[server].setup({
+        local opts = {
           capabilities = capabilities,
-        })
+        }
+
+        if server == "omnisharp" then
+          opts.cmd = {
+            "omnisharp",
+            "--languageservver",
+            "--hostPID",
+            tostring(vim.fn.getpid()),
+          }
+          opts.enable_roslyn_analyzers = true
+          opts.organize_imports_on_format = true
+        end
+
+        lspconfig[server].setup(opts)
       end,
     })
 

@@ -15,6 +15,7 @@ return {
       "yaml",
       "markdown",
       "markdown_inline",
+      "c_sharp",
     },
     highlight = {
       enable = true,
