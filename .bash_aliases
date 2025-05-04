@@ -14,17 +14,16 @@ alias grep='grep --color=auto'
 
 alias mkdir='mkdir -p -v'
 alias rmdir='rmdir -v'
-mkcd()
-{
-	case $# in
-		1)
-			mkdir -p "$1"
-			cd "$1"
-			;;
-		*)
-			echo "USAGE : mkcd <rep>"
-			;;
-	esac
+mkcd() {
+  case $# in
+  1)
+    mkdir -p "$1"
+    cd "$1"
+    ;;
+  *)
+    echo "USAGE : mkcd <rep>"
+    ;;
+  esac
 }
 
 alias c='cd ..'

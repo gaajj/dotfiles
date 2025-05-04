@@ -62,6 +62,10 @@ return {
     -- Configure all installed LSPs with default handler
     mason_lspconfig.setup_handlers({
       function(server)
+        -- Skip jdtls - handled mmanually in ftplugin
+        if server == "jdtls" then
+          return
+        end
         local opts = {
           capabilities = capabilities,
         }
