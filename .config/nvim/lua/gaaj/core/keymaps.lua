@@ -30,3 +30,7 @@ keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle file explor
 -- C#
 keymap.set("n", "<leader>cb", ":Build<CR>", { desc = "C#: Build project" })
 keymap.set("n", "<leader>cr", ":Run<CR>", { desc = "C#: Run project" })
+
+-- RUST
+vim.keymap.set("n", "<leader>rb", "<cmd>!cargo build<CR>", { desc = "Rust: Build project" })
+vim.keymap.set("n", "<leader>rr", "<cmd>terminal cargo run<CR>", { desc = "Rust: Run project" })

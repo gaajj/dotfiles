@@ -16,6 +16,8 @@ return {
       "markdown",
       "markdown_inline",
       "c_sharp",
+      "vue",
+      "rust",
     },
     highlight = {
       enable = true,
@@ -37,7 +39,6 @@ return {
   end,
   {
     "nvim-treesitter/playground",
-    "nvim-treesitter/nvim-treesitter-textobjects"
-  }
+    "nvim-treesitter/nvim-treesitter-textobjects",
+  },
 }
-

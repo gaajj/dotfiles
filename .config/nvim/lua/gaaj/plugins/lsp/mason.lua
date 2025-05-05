@@ -17,8 +17,10 @@ return {
         "phpactor",
         "jdtls",
         "omnisharp",
+        "tsserver",
+        "volar",
+        "rust_analyzer",
       },
     })
   end,
 }
-

@@ -19,6 +19,7 @@ return {
         "stylelint",
         "dotenv-linter",
         "gitlint",
+        "clippy",
 
         -- Formatters
         "prettier",
@@ -27,6 +28,7 @@ return {
         "stylua",
         "php-cs-fixer",
         "shfmt",
+        "rustfmt",
       },
     })
   end,

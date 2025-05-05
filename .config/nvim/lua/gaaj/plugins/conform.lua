@@ -23,6 +23,8 @@ return {
         liquid = { "prettier" },
         php = { "php-cs-fixer" },
         sh = { "shfmt" },
+        vue = { "prettier" },
+        rust = { "rustfmt" },
       },
 
       -- Auto format on save
