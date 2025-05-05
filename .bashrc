@@ -13,7 +13,9 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 export XDG_CURRENT_DESKTOP=Hyprland
+export PATH="$HOME/Scripts:$PATH"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+. "$HOME/.cargo/env"

@@ -2,7 +2,7 @@
 
 set -e  # Exit on error
 
-DOTFILES_DIR="$HOME/.dotfiles"
+DOTFILES_DIR="$HOME/dotfiles"
 CONFIG_DIR="$HOME/.config"
 SSH_DIR="$HOME/.ssh"
 BACKUP_DIR="$DOTFILES_DIR/backup/backup_$(date +%Y%m%d%H%M%S)"
