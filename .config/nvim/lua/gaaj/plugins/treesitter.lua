@@ -16,6 +16,7 @@ return {
       "markdown",
       "markdown_inline",
       "c_sharp",
+      "omnisharp",
       "vue",
       "rust",
     },

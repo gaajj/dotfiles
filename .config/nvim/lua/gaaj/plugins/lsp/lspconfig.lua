@@ -73,7 +73,7 @@ return {
         if server == "omnisharp" then
           opts.cmd = {
             "omnisharp",
-            "--languageservver",
+            "--languageserver",
             "--hostPID",
             tostring(vim.fn.getpid()),
           }
