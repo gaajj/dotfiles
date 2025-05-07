@@ -5,7 +5,7 @@ return {
     "hrsh7th/cmp-nvim-lsp",
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    { "folke/neodev.nvim", opts = {} }, -- optional for better Lua dev
+    { "folke/neodev.nvim", opts = {} },
   },
   config = function()
     local lspconfig = require("lspconfig")
