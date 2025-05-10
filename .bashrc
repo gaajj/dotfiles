@@ -15,6 +15,10 @@ fi
 export XDG_CURRENT_DESKTOP=Hyprland
 export PATH="$HOME/Scripts:$PATH"
 
+# c#
+export DOTNET_ROOT=$HOME/.dotnet
+export PATH=$HOME/.dotnet:$PATH
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
