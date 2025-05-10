@@ -34,3 +34,36 @@ keymap.set("n", "<leader>cr", ":Run<CR>", { desc = "C#: Run project" })
 -- RUST
 vim.keymap.set("n", "<leader>rb", "<cmd>!cargo build<CR>", { desc = "Rust: Build project" })
 vim.keymap.set("n", "<leader>rr", "<cmd>terminal cargo run<CR>", { desc = "Rust: Run project" })
+
+vim.keymap.set("n", "<leader>sc", function()
+  local word = vim.fn.expand("<cword>")
+  local swapped = word:gsub(".", function(c)
+    if c:match("%l") then
+      return c:upper()
+    elseif c:match("%u") then
+      return c:lower()
+    else
+      return c
+    end
+  end)
+  vim.cmd("normal! ciw" .. swapped)
+end, { noremap = true, silent = true, desc = "Swap case of word under cursor" })
+vim.keymap.set("n", "<leader>cs", function()
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local line = vim.api.nvim_get_current_line()
+  local char = line:sub(col + 1, col + 1)
+
+  if char == "" then return end
+
+  local swapped
+  if char:match("%l") then
+    swapped = char:upper()
+  elseif char:match("%u") then
+    swapped = char:lower()
+  else
+    return
+  end
+
+  local new_line = line:sub(1, col) .. swapped .. line:sub(col + 2)
+  vim.api.nvim_set_current_line(new_line)
+end, { noremap = true, silent = true, desc = "Swap case of character under cursor" })
