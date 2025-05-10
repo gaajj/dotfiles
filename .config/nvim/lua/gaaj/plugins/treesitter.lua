@@ -9,6 +9,7 @@ return {
       "javascript",
       "typescript",
       "html",
+      "c_sharp",
       "css",
       "bash",
       "json",

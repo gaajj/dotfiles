@@ -25,6 +25,7 @@ return {
         sh = { "shfmt" },
         vue = { "prettier" },
         rust = { "rustfmt" },
+        cs = { "csharpier" },
       },
 
       -- Auto format on save
