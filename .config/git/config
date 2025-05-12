@@ -1,0 +1,76 @@
+[user]
+  name = gaajj
+  email = daan@gaaj.dev
+  signingkey = 71F149256587BC0D
+
+[core]
+  compression = 9
+  whitespace = error
+  preloadindex = true
+
+[advice]
+  addEmptyPathspec = false
+  pushNonFastForward = false
+  statusHints = false
+
+[url "git@github.com:gaajj/"]
+  insteadOf = "gg:"
+
+[url "git@github.com:"]
+  insteadOf = "gh:"
+
+[status]
+  branch = true
+  showStash = true
+  showUntrackedFiles = all
+
+[diff]
+  context = 3
+  renames = copies
+  interHunkContext = 10
+
+[color "diff"]
+  meta        = black bold
+  frag        = magenta
+  context     = white
+  whitespace  = yellow reverse
+  old         = red
+
+[commit]
+  gpgsign = true
+
+[push]
+  autoSetupRemote = true
+  default = current
+  followTags = true
+
+[pull]
+  default = current
+  rebase = true
+
+[rebase]
+  autoStash = true
+  missingCommitsCheck = warn
+
+[log]
+  abbrevCommit = true
+  grapColors = blue,yellow,cyan,magenta,green,red
+
+[color "decorate"]
+  HEAD = red
+  branch = blue
+  tag = yellow
+  remoteBranch = magenta
+
+[color "branch"]
+  current = magenta
+  local = default
+  remote = yellow
+  upstream = green
+  plain = blue
+
+[branch]
+  sort = -committerdate
+
+[tag]
+  sort = -taggerdate
