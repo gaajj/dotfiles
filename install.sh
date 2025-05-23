@@ -23,7 +23,7 @@ echo "Linking top-level dotfiles..."
 # Top-level dotfiles (like .bashrc, .bash_aliases)
 for file in "$DOTFILES_DIR"/.*; do
     filename=$(basename "$file")
-    [[ "$filename" == "." || "$filename" == ".." || "$filename" == ".git" || "$filename" == ".config" || "$filename" == ".ssh" || "$filename" == "backup" || "$filename" == ".gitignore" ]] && continue
+    [[ "$filename" == "." || "$filename" == ".." || "$filename" == ".git" || "$filename" == ".config" || "$filename" == ".ssh" || "$filename" == "backup" || "$filename" == ".gitignore" || "$filename" == "dwm" || "$filename" == "dwmblocks" || "$filename" == "st" || "$filename" == "dmenu" ]] && continue
 
     target="$HOME/$filename"
 
