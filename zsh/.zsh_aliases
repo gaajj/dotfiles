@@ -1,0 +1,39 @@
+alias l='eza --long --color=always --icons=always --no-user --no-time --no-permissions --no-filesize'
+alias la='eza -a --long --color=always --icons=always --no-user --no-time --no-permissions --no-filesize'
+alias ll='eza --long --color=always --icons=always'
+alias lla='eza -a --long --color=always --icons=always'
+alias lt='eza --tree --color=always --icons=always'
+alias lta='eza --tree -a --color=always --icons=always'
+
+alias c='cd ..'
+
+alias cat='bat'
+
+alias tree='tree -L 3 -a -I ".git" --charset X'
+alias dtree='tree -L 4 -a -d -I ".git" --charset X'
+alias lstr='lstr --icons'
+
+alias gt='git'
+alias ga='git add .'
+alias gs='git status -s'
+alias gc='git commit -m'
+alias glog='git log --oneline --graph --all'
+alias lg='lazygit'
+
+ginit() {
+    git init -b master
+    git add .
+    git commit -m "Initial commit"
+}
+
+ghinit() {
+    if [ -z "$1" ]; then
+        echo "Usage: ghinit <repo-name>"
+        return 1
+    fi
+    git init
+    git add .
+    git commit -m "Initial commit"
+    git branch -M master
+    gh repo create "$1" --private --source=. --remote=origin --push
+}
