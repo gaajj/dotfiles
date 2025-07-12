@@ -41,3 +41,5 @@ zinit light wfxr/forgit
 
 # Load aliases from .zsh_aliases
 [[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
+
+eval "$(zoxide init zsh)"

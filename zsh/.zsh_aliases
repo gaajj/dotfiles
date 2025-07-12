@@ -37,3 +37,5 @@ ghinit() {
     git branch -M master
     gh repo create "$1" --private --source=. --remote=origin --push
 }
+
+alias nzo='~/scripts/zoxide_openfiles_nvim'
