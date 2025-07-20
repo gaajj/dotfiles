@@ -144,7 +144,7 @@ return {
             { "<leader>dB", function() require("snacks").bufdelete() end, desc = "Delete or Close Buffer  (Confirm)" },
 
             -- Snacks Picker
-            { "<leader>fe", function() require("snacks").picker.explorer() end, desc = "Open Snacks Explorer" },
+            -- { "<leader>fe", function() require("snacks").picker.explorer() end, desc = "Open Snacks Explorer" },
             { "<leader>ff", function() require("snacks").picker.files() end, desc = "Find Files (Snacks Picker)" },
             { "<leader>fc", function() require("snacks").picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
             { "<leader>fs", function() require("snacks").picker.grep() end, desc = "Grep word" },
