@@ -1,0 +1,185 @@
+############################################
+# VARIABLES
+############################################
+set $mod Mod4
+set $term ~/scripts/startup/tmux
+set $menu rofi
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+set $ws11 "11"
+set $ws12 "12"
+set $ws13 "13"
+set $ws14 "14"
+set $ws15 "15"
+
+############################################
+# UI & STYLE
+############################################
+font pango:monospace 8
+floating_modifier $mod
+for_window [class=".*"] border pixel 3
+
+bar {
+  status_command i3status -c /home/gaaj/.config/i3status/i3status.conf
+}
+
+############################################
+# MONITOR CONFIGURATION
+############################################
+exec xrandr --output DP-4 --primary --mode 2560x1440 --pos 1920x0 --rate 144 \
+       --output DP-0 --mode 1920x1080 --pos 0x360 --rate 60 \
+       --output HDMI-0 --mode 1920x1080 --pos 4480x360 --rate 60
+
+############################################
+# APPLICATION ASSIGNMENTS
+############################################
+assign [class="vesktop"] number 1
+assign [class="Spotify"] number 2
+assign [class="steam"] number 3
+assign [class="firefox"] number 11
+
+############################################
+# STARTUP
+############################################
+exec_always --no-startup-id /home/gaaj/.config/i3/autostart.sh
+
+exec_always --no-startup-id bash -c "sleep 1 && i3-msg 'focus output DP-0; workspace 1'"
+exec_always --no-startup-id bash -c "sleep 1 && i3-msg 'focus output HDMI-0; workspace 11'"
+exec_always --no-startup-id bash -c "sleep 1 && i3-msg 'focus output DP-4; workspace 6'"
+
+############################################
+# KEYBINDINGS - APP LAUNCHERS
+############################################
+bindsym $mod+Return exec $term
+bindsym $mod+v exec --no-startup-id rofi -show drun
+
+############################################
+# KEYBINDINGS - WINDOW MANAGEMENT
+############################################
+bindsym $mod+c kill
+bindsym $mod+m fullscreen toggle
+bindsym $mod+n floating toggle
+bindsym $mod+Shift+n focus mode_toggle
+
+############################################
+# KEYBINDINGS - FOCUS MOVEMENT
+############################################
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+############################################
+# KEYBINDINGS - WINDOW MOVEMENT
+############################################
+bindsym $mod+Shift+h move left 50 px
+bindsym $mod+Shift+j move down 50 px
+bindsym $mod+Shift+k move up 50 px
+bindsym $mod+Shift+l move right 50 px
+
+############################################
+# KEYBINDINGS - WINDOW RESIZING
+############################################
+bindsym $mod+Control+h resize shrink width 50 px or 50 ppt
+bindsym $mod+Control+l resize grow width 50 px or 50 ppt
+bindsym $mod+Control+j resize grow height 50 px or 50 ppt
+bindsym $mod+Control+k resize shrink height 50 px or 50 ppt
+
+############################################
+# KEYBINDINGS - SPLIT & LAYOUT
+############################################
+bindsym $mod+y split h
+bindsym $mod+u split v
+bindsym $mod+i layout stacking
+bindsym $mod+o layout tabbed
+bindsym $mod+p layout toggle split
+
+############################################
+# WORKSPACE OUTPUT ASSIGNMENTS
+############################################
+workspace $ws1 output DP-0
+workspace $ws2 output DP-0
+workspace $ws3 output DP-0
+workspace $ws4 output DP-0
+workspace $ws5 output DP-0
+
+workspace $ws6 output DP-4
+workspace $ws7 output DP-4
+workspace $ws8 output DP-4
+workspace $ws9 output DP-4
+workspace $ws10 output DP-4
+
+workspace $ws11 output HDMI-0
+workspace $ws12 output HDMI-0
+workspace $ws13 output HDMI-0
+workspace $ws14 output HDMI-0
+workspace $ws15 output HDMI-0
+
+############################################
+# MONITOR CONTROL MODES
+############################################
+mode "Monitor Left" {
+    bindsym a workspace number $ws1
+    bindsym s workspace number $ws2
+    bindsym d workspace number $ws3
+    bindsym f workspace number $ws4
+    bindsym g workspace number $ws5
+
+    bindsym Shift+a move container to workspace number $ws1
+    bindsym Shift+s move container to workspace number $ws2
+    bindsym Shift+d move container to workspace number $ws3
+    bindsym Shift+f move container to workspace number $ws4
+    bindsym Shift+g move container to workspace number $ws5
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+mode "Monitor Center" {
+    bindsym a workspace number $ws6
+    bindsym s workspace number $ws7
+    bindsym d workspace number $ws8
+    bindsym f workspace number $ws9
+    bindsym g workspace number $ws10
+
+    bindsym Shift+a move container to workspace number $ws6
+    bindsym Shift+s move container to workspace number $ws7
+    bindsym Shift+d move container to workspace number $ws8
+    bindsym Shift+f move container to workspace number $ws9
+    bindsym Shift+g move container to workspace number $ws10
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+mode "Monitor Right" {
+    bindsym a workspace number $ws11
+    bindsym s workspace number $ws12
+    bindsym d workspace number $ws13
+    bindsym f workspace number $ws14
+    bindsym g workspace number $ws15
+
+    bindsym Shift+a move container to workspace number $ws11
+    bindsym Shift+s move container to workspace number $ws12
+    bindsym Shift+d move container to workspace number $ws13
+    bindsym Shift+f move container to workspace number $ws14
+    bindsym Shift+g move container to workspace number $ws15
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Enter monitor control modes
+bindsym $mod+q mode "Monitor Left"
+bindsym $mod+w mode "Monitor Center"
+bindsym $mod+e mode "Monitor Right"
+
