@@ -25,12 +25,12 @@ return {
 				},
 			},
 			formatters_by_ft = {
-				javascript = { "biome-check" },
-				typescript = { "biome-check" },
-				javascriptreact = { "biome-check" },
-				typescriptreact = { "biome-check" },
-				css = { "biome-check" },
-				html = { "biome-check" },
+				javascript = { "prettier" },
+				typescript = { "prettier" },
+				javascriptreact = { "prettier" },
+				typescriptreact = { "prettier" },
+				css = { "prettier" },
+				html = { "prettier" },
 				svelte = { "prettier" },
 				json = { "prettier" },
 				yaml = { "prettier" },
@@ -54,7 +54,8 @@ return {
 				"--stdin-filepath",
 				"$FILENAME",
 				"--tab-width",
-				"4",
+				"2",
+				"--single-quote",
 				"--use-tabs",
 				"false",
 			},
@@ -69,6 +70,6 @@ return {
 				async = false,
 				timeout_ms = 1000,
 			})
-		end, { desc = "Format whole file or range (in visual mode) with" })
+		end, { desc = "Format whole file or range (in visual mode)" })
 	end,
 }
