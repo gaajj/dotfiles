@@ -43,3 +43,8 @@ zinit light wfxr/forgit
 [[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
 
 eval "$(zoxide init zsh)"
+export PATH="/home/gaaj/.config/herd-lite/bin:$PATH"
+export PHP_INI_SCAN_DIR="/home/gaaj/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+
+# move global npm directory
+export PATH="$HOME/.npm-global/bin:$PATH"
