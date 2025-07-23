@@ -7,6 +7,8 @@ alias lta='eza --tree -a --color=always --icons=always'
 
 alias c='cd ..'
 
+alias cl='clear'
+
 alias cat='bat'
 
 alias tree='tree -L 3 -a -I ".git" --charset X'
@@ -39,3 +41,6 @@ ghinit() {
 }
 
 alias nzo='~/scripts/zoxide_openfiles_nvim'
+
+alias dcd='docker compose down'
+alias dcu='docker compose up'
