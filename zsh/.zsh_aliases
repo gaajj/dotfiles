@@ -44,3 +44,8 @@ alias nzo='~/scripts/zoxide_openfiles_nvim'
 
 alias dcd='docker compose down'
 alias dcu='docker compose up'
+
+alias poweroff='sudo systemctl poweroff'
+alias restart='sudo systemctl reboot'
+
+alias update='sudo pacman -Syu'

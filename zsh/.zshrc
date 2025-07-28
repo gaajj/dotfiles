@@ -48,3 +48,6 @@ export PHP_INI_SCAN_DIR="/home/gaaj/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 
 # move global npm directory
 export PATH="$HOME/.npm-global/bin:$PATH"
+
+# Make scripts in ~/scripts global
+export PATH="$HOME/scripts:$PATH"
