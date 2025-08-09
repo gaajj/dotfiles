@@ -11,5 +11,6 @@ bold_italic_font auto
 # END_KITTY_FONTS
 
 # BEGIN_KITTY_THEME
-include vague-kitty-theme.conf
+# Jet Brains Darcula
+# include Jet-Brains-Darcula-theme.conf
 # END_KITTY_THEME
