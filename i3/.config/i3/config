@@ -55,6 +55,8 @@ exec_always --no-startup-id /home/gaaj/.config/i3/autostart.sh
 exec xinput --set-prop 'Logitech USB Receiver' 'libinput Accel Speed' 0.2
 exec xinput --set-prop "Logitech USB Receiver" "libinput Accel Profile Enabled" 0, 1, 0
 
+exec --no-startup-id picom
+
 exec_always --no-startup-id bash -c "sleep 1 && i3-msg 'focus output DP-0; workspace 1'"
 exec_always --no-startup-id bash -c "sleep 1 && i3-msg 'focus output HDMI-0; workspace 11'"
 exec_always --no-startup-id bash -c "sleep 1 && i3-msg 'focus output DP-4; workspace 6'"
