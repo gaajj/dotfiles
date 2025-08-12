@@ -55,7 +55,7 @@ exec_always --no-startup-id /home/gaaj/.config/i3/autostart.sh
 exec xinput --set-prop 'Logitech USB Receiver' 'libinput Accel Speed' 0.2
 exec xinput --set-prop "Logitech USB Receiver" "libinput Accel Profile Enabled" 0, 1, 0
 
-exec --no-startup-id xset r rate 200 40
+exec --no-startup-id xset r rate 300 40
 
 exec --no-startup-id picom
 
