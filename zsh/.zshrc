@@ -51,3 +51,10 @@ export PATH="$HOME/.npm-global/bin:$PATH"
 
 # Make scripts in ~/scripts global
 export PATH="$HOME/scripts:$PATH"
+
+export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+. "$HOME/.cargo/env"
+export LIBVIRT_DEFAULT_URI='qemu:///system'
