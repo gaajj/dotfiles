@@ -26,23 +26,22 @@ return {
       local map = function(mode, lhs, rhs, desc)
         vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true, noremap = true, desc = desc })
       end
-      map("n", "K",         vim.lsp.buf.hover,          "Hover")
-      map("n", "gd",        vim.lsp.buf.definition,     "Goto Definition")
-      map("n", "gD",        vim.lsp.buf.declaration,    "Goto Declaration")
-      map("n", "gi",        vim.lsp.buf.implementation, "Goto Implementation")
-      map("n", "gr",        vim.lsp.buf.references,     "References")
-      map("n", "<leader>rn",vim.lsp.buf.rename,         "Rename")
-      map("n", "<leader>ca",vim.lsp.buf.code_action,    "Code Action")
-      map("n", "<leader>fd",function() vim.diagnostic.open_float(nil, { focus = false }) end, "Line Diagnostics")
-      map("n", "[d",        vim.diagnostic.goto_prev,   "Prev Diagnostic")
-      map("n", "]d",        vim.diagnostic.goto_next,   "Next Diagnostic")
-      map({ "n","x" }, "<leader>f", function() vim.lsp.buf.format({ async = true }) end, "Format")
+      map("n", "K", vim.lsp.buf.hover, "Hover")
+      map("n", "gd", vim.lsp.buf.definition, "Goto Definition")
+      map("n", "gD", vim.lsp.buf.declaration, "Goto Declaration")
+      map("n", "gi", vim.lsp.buf.implementation, "Goto Implementation")
+      map("n", "gr", vim.lsp.buf.references, "References")
+      map("n", "<leader>rn", vim.lsp.buf.rename, "Rename")
+      map("n", "<leader>ca", vim.lsp.buf.code_action, "Code Action")
+      map("n", "<leader>fd", function() vim.diagnostic.open_float(nil, { focus = false }) end, "Line Diagnostics")
+      map("n", "[d", vim.diagnostic.goto_prev, "Prev Diagnostic")
+      map("n", "]d", vim.diagnostic.goto_next, "Next Diagnostic")
     end
 
     local lspconfig = require("lspconfig")
 
     require("mason-lspconfig").setup({
-      ensure_installed = { "lua_ls" },      -- add more: "bashls","pyright","ts_ls", ...
+      ensure_installed = { "lua_ls", "bashls", "jdtls" },
       automatic_installation = true,
       handlers = {
         -- default handler for every server
