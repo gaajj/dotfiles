@@ -1,7 +1,3 @@
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-alias pac='sudo pacman -S'
-
 alias ls='eza --color=always --icons=always'
 alias lsa='eza -a --color=always --icons=always'
 alias l='eza --long --color=always --icons=always --no-user --no-time --no-permissions --no-filesize'
@@ -10,3 +6,13 @@ alias ll='eza --long --color=always --icons=always'
 alias lla='eza -a --long --color=always --icons=always'
 alias lt='eza --tree -L 5 --git-ignore --color=always --icons=always'
 alias lta='eza --tree -a -L 5 --git-ignore --color=always --icons=always'
+
+alias pacs='sudo pacman -S'
+alias pacss='sudo pacman -Ss'
+alias pacruns='sudo pacman -Runs'
+alias pacu='sudo pacman -Syu'
+
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit -m'
+alias gp='git push'
