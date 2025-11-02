@@ -18,5 +18,6 @@ o.wrap = false
 o.incsearch = true
 
 o.termguicolors = true
+o.signcolumn = "yes"
 
 o.showmode = false
