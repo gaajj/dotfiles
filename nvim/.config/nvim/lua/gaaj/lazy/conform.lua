@@ -18,6 +18,7 @@ return {
       typescript = { "prettier" },
       css = { "prettier" },
       python = { "ruff_format", "black" },
+      java = { "google-java-format" },
     },
   },
   keys = {

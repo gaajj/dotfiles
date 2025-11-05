@@ -18,6 +18,40 @@ return {
     -- Use Mason’s jdtls wrapper binary (simplest, cross-platform)
     local cmd = { vim.fn.stdpath("data") .. "/mason/bin/jdtls", "-data", workspace_dir }
 
+    -- Dubug stuff ---------------------------
+
+    local bundles = {}
+    local function glob(p) return vim.split(vim.fn.glob(p), "\n", { trimempty = true }) end
+
+    local ok_mr, mason_registry = pcall(require, "mason-registry")
+    local function pkg_install_path(name)
+      if not ok_mr then return nil end
+      if not mason_registry.has_package(name) then return nil end
+      local pkg = mason_registry.get_package(name)
+      if not pkg then return nil end
+      -- Support both API shapes
+      if type(pkg.get_install_path) == "function" then
+        return pkg:get_install_path()
+      end
+      return pkg.install_path
+    end
+
+    local debug_path = pkg_install_path("java-debug-adapter")
+    if debug_path then
+      for _, jar in ipairs(glob(debug_path .. "/extension/server/com.microsoft.java.debug.plugin-*.jar")) do
+        table.insert(bundles, jar)
+      end
+    end
+
+    local test_path = pkg_install_path("java-test")
+    if test_path then
+      for _, jar in ipairs(glob(test_path .. "/extension/server/*.jar")) do
+        table.insert(bundles, jar)
+      end
+    end
+
+    -- -----------------------------------------
+
     local on_attach = function(_, bufnr)
       -- reuse your global LSP mappings style
       local map = function(mode, lhs, rhs, desc)
@@ -48,7 +82,7 @@ return {
 
     if not vim.env.JAVA_HOME or not string.find(vim.env.JAVA_HOME or "", "21") then
       -- adjust this path to your actual JDK 21 location
-      vim.env.JAVA_HOME = "/home/gaaj/.sdkman/candidates/java/current"
+      vim.env.JAVA_HOME = "/home/gaaj/.sdkman/candidates/java/21.0.9-zulu"
       vim.env.PATH = vim.env.JAVA_HOME .. "/bin:" .. vim.env.PATH
     end
 
@@ -61,11 +95,11 @@ return {
         java = {
           signatureHelp = { enabled = true },
           configuration = { updateBuildConfiguration = "interactive" },
-          format = { enabled = true }, -- jdtls can format Java out of the box
+          format = { enabled = true },
         },
       },
       init_options = {
-        bundles = {}, -- (we’ll add debug/test bundles later for QoL)
+        bundles = bundles,
       },
     })
   end,

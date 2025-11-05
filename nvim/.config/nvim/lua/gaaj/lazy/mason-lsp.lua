@@ -41,7 +41,11 @@ return {
     local lspconfig = require("lspconfig")
 
     require("mason-lspconfig").setup({
-      ensure_installed = { "lua_ls", "bashls", "jdtls" },
+      ensure_installed = {
+        "lua_ls",
+        "bashls",
+        "jdtls",
+      },
       automatic_installation = true,
       handlers = {
         -- default handler for every server
