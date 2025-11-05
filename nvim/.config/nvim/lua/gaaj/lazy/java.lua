@@ -75,13 +75,31 @@ return {
       jdtls.setup.add_commands()
     end
 
+    local function ensure_java21_runtime()
+      local function current_java_major()
+        if vim.fn.executable("java") ~= 1 then return nil end
+        local first = (vim.fn.systemlist("java -version")[1] or "")
+        local ver = first:match('"(.-)"') or ""
+        local major = ver:match("^1%.(%d+)") or ver:match("^(%d+)")
+        return tonumber(major)
+      end
+
+      local major = current_java_major()
+      if not major or major < 21 then
+        local j21 = "/home/gaaj/.sdkman/candidates/java/21.0.9-zulu"
+        vim.env.JAVA_HOME = j21
+        vim.env.PATH = j21 .. "/bin:" .. vim.env.PATH
+      end
+    end
+
+    ensure_java21_runtime()
+
     -- Capabilities (nvim-cmp)
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     local ok_cmp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
     if ok_cmp then capabilities = cmp_lsp.default_capabilities(capabilities) end
 
-    if not vim.env.JAVA_HOME or not string.find(vim.env.JAVA_HOME or "", "21") then
-      -- adjust this path to your actual JDK 21 location
+    if vim.fn.executable("java") ~= 1 then
       vim.env.JAVA_HOME = "/home/gaaj/.sdkman/candidates/java/21.0.9-zulu"
       vim.env.PATH = vim.env.JAVA_HOME .. "/bin:" .. vim.env.PATH
     end
@@ -94,7 +112,19 @@ return {
       settings = {
         java = {
           signatureHelp = { enabled = true },
-          configuration = { updateBuildConfiguration = "interactive" },
+          configuration = {
+            updateBuildConfiguration = "interactive",
+            runtimes = {
+              { name = "JavaSE-1.8", path = "/home/gaaj/.sdkman/candidates/java/8.0.472-zulu" },
+              { name = "JavaSE-21",  path = "/home/gaaj/.sdkman/candidates/java/21.0.9-zulu" },
+            },
+          },
+          import = {
+            gradle = { enabled = true, wrapper = true, downloadSources = true },
+            maven  = { downloadSources = true },
+          },
+          references = { includeDecompiledSources = true },
+          contentProvider = { preferred = "fernflower" },
           format = { enabled = true },
         },
       },
