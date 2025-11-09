@@ -47,12 +47,18 @@ return {
         PATH = JDK8 .. "/bin:" .. vim.env.PATH,
       })
     end, { desc = "Gradle: runClient (Java 8 via Overseer)" })
+    vim.keymap.set("n", "<leader>oc", function()
+      run_gradle({ "clean" }, {
+        JAVA_HOME = JDK8,
+        PATH = JDK8 .. "/bin:" .. vim.env.PATH,
+      })
+    end, { desc = "Gradle: clean (Java 8 via Overseer)" })
     vim.keymap.set("n", "<leader>ob", function() run_gradle({ "build" }) end,
       { desc = "Gradle: build (Overseer)" })
     vim.keymap.set("n", "<leader>oT", function() run_gradle({ "test" }) end,
       { desc = "Gradle: test (Overseer)" })
-    vim.keymap.set("n", "<leader>oc", function() run_gradle({ "clean" }) end,
-      { desc = "Gradle: clean (Overseer)" })
+    -- vim.keymap.set("n", "<leader>oc", function() run_gradle({ "clean" }) end,
+    --   { desc = "Gradle: clean (Overseer)" })
 
     -- Prompt for any Gradle task (type e.g. "runClient --stacktrace")
     vim.keymap.set("n", "<leader>oG", function()
