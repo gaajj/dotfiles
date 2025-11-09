@@ -2,7 +2,7 @@ return {
   "stevearc/conform.nvim",
   event = { "BufReadPre", "BufNewFile" },
   opts = {
-    notify_on_error = false,
+    notify_on_error = true,
     format_on_save = function(bufnr)
       local max = 200 * 1024
       local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
@@ -10,18 +10,17 @@ return {
       return { lsp_fallback = true, timeout_ms = 1500 }
     end,
     formatters_by_ft = {
-      lua = { "stylua" },
-      json = { "jq" },
-      yaml = { "prettier" },
-      markdown = { "prettier" },
-      javascript = { "prettier" },
-      typescript = { "prettier" },
-      css = { "prettier" },
-      python = { "ruff_format", "black" },
+      json = { "prettierd", "prettier", "jq" },
+      yaml = { "prettierd", "prettier" },
+      markdown = { "prettierd", "prettier" },
+      javascript = { "prettierd", "prettier" },
+      typescript = { "prettierd", "prettier" },
+      css = { "prettierd", "prettier" },
       java = { "google-java-format" },
-    },
+      groovy = { "npm-groovy-lint" },
+    }
   },
   keys = {
-    { "<leader>f", function() require("conform").format({ async = true, lsp_fallback = true }) end, desc = "Format document" },
+    { "<leader>l", function() require("conform").format({ async = true, lsp_fallback = true }) end, desc = "Format document" },
   },
 }
