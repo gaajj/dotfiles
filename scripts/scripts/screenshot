@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+mode="${1:-area}"
+
+outdir="${XDG_PICTURES_DIR:-$HOME/pictures}/screenshots"
+mkdir -p "$outdir"
+
+ts="$(date '+%Y-%m-%d_%H-%M-%S')"
+outfile="$outdir/screenshot_${mode}_$ts.png"
+
+take_full() {
+  grim - | tee "$outfile" | wl-copy -t image/png >/dev/null
+}
+
+take_area() {
+  geo="$(slurp -d)" || exit 0
+  grim -g "$geo" - | tee "$outfile" | wl-copy -t image/png >/dev/null
+}
+
+case "$mode" in
+  full) take_full ;;
+  area) take_area ;;
+  *) echo "Usage: $0 [full|area]"; exit 1 ;;
+esac
+
+echo "$outfile"
