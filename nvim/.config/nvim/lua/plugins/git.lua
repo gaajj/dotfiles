@@ -18,9 +18,9 @@ return {
 					vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
 				end
 
-				map('n', ']c', function()
+				map('n', ']h', function()
 					if vim.wo.diff then
-						return ']c'
+						return ']h'
 					end
 					vim.schedule(function()
 						gs.next_hunk()
@@ -28,9 +28,9 @@ return {
 					return '<Ignore>'
 				end, 'Next Hunk')
 
-				map('n', '[c', function()
+				map('n', '[h', function()
 					if vim.wo.diff then
-						return '[c'
+						return '[h'
 					end
 					vim.schedule(function()
 						gs.prev_hunk()

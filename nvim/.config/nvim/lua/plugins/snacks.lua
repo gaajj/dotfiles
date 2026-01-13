@@ -29,7 +29,7 @@ return {
 
 		keys = {
 			{
-				'<leader>g',
+				'<leader>lg',
 				function()
 					Snacks.lazygit()
 				end,
@@ -42,13 +42,13 @@ return {
 				end,
 				desc = 'Git Blame Line',
 			},
-			{
-				'<leader>t',
-				function()
-					Snacks.terminal()
-				end,
-				desc = 'Toggle Terminal',
-			},
+			-- {
+			-- 	'<leader>t',
+			-- 	function()
+			-- 		Snacks.terminal()
+			-- 	end,
+			-- 	desc = 'Toggle Terminal',
+			-- },
 		},
 	},
 }
