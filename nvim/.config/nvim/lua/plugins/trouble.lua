@@ -5,6 +5,9 @@ return {
 		cmd = 'Trouble',
 		opts = {
 			focus = true,
+			keys = {
+				['<cr>'] = 'jump_close',
+			},
 		},
 		keys = {
 			{ '<leader>dd', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'Buffer Diagnostics' },
