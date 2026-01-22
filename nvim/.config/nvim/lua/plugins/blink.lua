@@ -30,6 +30,13 @@ return {
 				nerd_font_variant = 'mono',
 			},
 
+			snippets = {
+				preset = 'default',
+				expand = function(snippet)
+					vim.snippet.expand(snippet)
+				end,
+			},
+
 			completion = {
 				list = { selection = { preselect = false, auto_insert = false } },
 			},

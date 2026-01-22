@@ -34,7 +34,7 @@ return {
 			local capabilities = blink.get_lsp_capabilities()
 
 			require('mason-lspconfig').setup({
-				ensure_installed = { 'lua_ls', 'stylua', 'jdtls' },
+				ensure_installed = { 'lua_ls', 'stylua', 'jdtls', 'gradle_ls', 'groovyls', 'kotlin_language_server' },
 				automatic_installation = true,
 
 				handlers = {

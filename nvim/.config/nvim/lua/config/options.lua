@@ -27,3 +27,9 @@ opt.clipboard = 'unnamedplus'
 opt.undofile = true
 opt.swapfile = false
 opt.mouse = 'a'
+
+vim.filetype.add({
+	extension = {
+		ron = 'ron',
+	},
+})
