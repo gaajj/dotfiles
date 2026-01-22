@@ -18,3 +18,4 @@ alias gc='git commit -m'
 alias gp='git push'
 
 alias v='nvim'
+alias n='nvim'
