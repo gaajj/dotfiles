@@ -7,6 +7,19 @@ return {
 	},
 
 	{
+		'WhoIsSethDaniel/mason-tool-installer.nvim',
+		dependencies = { 'williamboman/mason.nvim' },
+		opts = {
+			ensure_installed = {
+				'stylua',
+				'prettier',
+				'google-java-format',
+				'ktlint',
+			},
+		},
+	},
+
+	{
 		'folke/lazydev.nvim',
 		ft = 'lua',
 		opts = {
@@ -35,7 +48,7 @@ return {
 			require('mason-lspconfig').setup({
 				-- NOTE: only LSP server names here — formatters (stylua, prettier, etc.)
 				-- must be installed separately via Mason or your system package manager.
-				ensure_installed = { 'lua_ls', 'jdtls', 'gradle_ls', 'groovyls', 'kotlin_language_server' },
+				ensure_installed = { 'lua_ls', 'gradle_ls', 'groovyls', 'kotlin_language_server' },
 				automatic_installation = true,
 
 				handlers = {
