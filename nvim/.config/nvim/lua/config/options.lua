@@ -29,6 +29,9 @@ opt.swapfile = false
 opt.mouse = 'a'
 opt.updatetime = 250
 
+opt.spelllang = 'en_us'
+opt.spell = true
+
 vim.filetype.add({
 	extension = {
 		ron = 'ron',
