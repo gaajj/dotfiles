@@ -7,34 +7,12 @@ return {
 			livePreview = true,
 		},
 		keys = {
-			{
-				'<leader>th',
-				'<cmd>Themery<cr>',
-				desc = 'Theme Manager',
-			},
+			{ '<leader>th', '<cmd>Themery<cr>', desc = 'Theme Manager' },
 		},
 	},
 
-	{
-		'rebelot/kanagawa.nvim',
-		opts = { transparent = true, theme = 'dragon' },
-	},
-	{
-		'rebelot/kanagawa.nvim',
-		opts = { transparent = true, theme = 'wave' },
-	},
-	{
-		'folke/tokyonight.nvim',
-		opts = { transparent = true, style = 'storm' },
-	},
-	{
-		'catppuccin/nvim',
-		name = 'catppuccin',
-		opts = { transparent_background = true, flavour = 'mocha' },
-	},
-	{
-		'rose-pine/neovim',
-		name = 'rose-pine',
-		opts = { styles = { tranparency = true } },
-	},
+	{ 'rebelot/kanagawa.nvim', opts = { transparent = true } },
+	{ 'folke/tokyonight.nvim', opts = { transparent = true, style = 'storm' } },
+	{ 'catppuccin/nvim', name = 'catppuccin', opts = { transparent_background = true, flavour = 'mocha' } },
+	{ 'rose-pine/neovim', name = 'rose-pine', opts = { styles = { transparency = true } } },
 }

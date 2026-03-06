@@ -13,16 +13,8 @@ return {
 			{ '<leader>dd', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'Buffer Diagnostics' },
 			{ '<leader>dD', '<cmd>Trouble diagnostics toggle<cr>', desc = 'Project Diagnostics' },
 
-			{
-				'[d',
-				'<cmd>Trouble next skip_groups=true jump=true<cr>',
-				desc = 'Next Error',
-			},
-			{
-				']d',
-				'<cmd>Trouble prev skip_groups=true jump=true<cr>',
-				desc = 'Prev Error',
-			},
+			{ ']d', '<cmd>Trouble diagnostics next skip_groups=true jump=true<cr>', desc = 'Next Diagnostic' },
+			{ '[d', '<cmd>Trouble diagnostics prev skip_groups=true jump=true<cr>', desc = 'Prev Diagnostic' },
 		},
 	},
 }

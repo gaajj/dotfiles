@@ -15,7 +15,7 @@ opt.sidescrolloff = 10
 
 opt.tabstop = 4
 opt.shiftwidth = 4
-opt.expandtab = true -- true tab
+opt.expandtab = true
 opt.smartindent = true
 opt.wrap = false
 
@@ -27,6 +27,7 @@ opt.clipboard = 'unnamedplus'
 opt.undofile = true
 opt.swapfile = false
 opt.mouse = 'a'
+opt.updatetime = 250
 
 vim.filetype.add({
 	extension = {

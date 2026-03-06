@@ -7,9 +7,7 @@ return {
 			indent = {
 				enabled = true,
 				animate = { enabled = false },
-				indent = {
-					char = '╎',
-				},
+				indent = { char = '╎' },
 				scope = {
 					enabled = true,
 					char = '│',
@@ -35,20 +33,6 @@ return {
 				end,
 				desc = 'LazyGit',
 			},
-			{
-				'<leader>gb',
-				function()
-					Snacks.git.blame_line()
-				end,
-				desc = 'Git Blame Line',
-			},
-			-- {
-			-- 	'<leader>t',
-			-- 	function()
-			-- 		Snacks.terminal()
-			-- 	end,
-			-- 	desc = 'Toggle Terminal',
-			-- },
 		},
 	},
 }

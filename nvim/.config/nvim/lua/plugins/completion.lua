@@ -9,8 +9,7 @@ return {
 			keymap = {
 				preset = 'none',
 
-				['<Tab>'] = { 'select_and_accept', 'fallback' },
-
+				['<Tab>'] = { 'select_next', 'select_and_accept', 'fallback' },
 				['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
 
 				['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
@@ -30,12 +29,7 @@ return {
 				nerd_font_variant = 'mono',
 			},
 
-			snippets = {
-				preset = 'default',
-				expand = function(snippet)
-					vim.snippet.expand(snippet)
-				end,
-			},
+			snippets = { preset = 'default' },
 
 			completion = {
 				list = { selection = { preselect = false, auto_insert = false } },
