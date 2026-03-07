@@ -13,6 +13,8 @@ eval "$(zoxide init zsh)"
 [ -f ~/.zsh_aliases ] && source ~/.zsh_aliases
 [ -f ~/.zsh_functions ] && source ~/.zsh_functions
 
+export PATH="$HOME/scripts:$PATH"
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
