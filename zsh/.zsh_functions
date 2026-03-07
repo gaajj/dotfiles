@@ -1,0 +1,18 @@
+tmux_project() {
+  local dir
+  dir=$(zoxide query -l | fd . ~/projects ~/dotfiles | fzf) || return
+
+  local name
+  name=$(basename "$dir" | tr . _)
+
+  if [ -n "$TMUX" ]; then
+    if tmux has-session -t "$name" 2>/dev/null; then
+      tmux switch-client -t "$name"
+    else
+      tmux new-session -ds "$name" -c "$dir"
+      tmux switch-client -t "$name"
+    fi
+  else
+    tmux new-session -As "$name" -c "$dir"
+  fi
+}

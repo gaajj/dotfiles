@@ -1,0 +1,33 @@
+alias cd='z'
+alias ..='cd ..'
+alias ...='cd ...'
+
+alias c='clear'
+
+alias ls='eza --color=always --icons=always'
+alias lsa='eza -a --color=always --icons=always'
+alias l='eza --long --color=always --icons=always --no-user --no-time --no-permissions --no-filesize'
+alias la='eza -a --long --color=always --icons=always --no-user --no-time --no-permissions --no-filesize'
+alias ll='eza --long --color=always --icons=always'
+alias lla='eza -a --long --color=always --icons=always'
+alias lt='eza --tree -L 5 --git-ignore --color=always --icons=always'
+alias lta='eza --tree -a -L 5 --git-ignore --color=always --icons=always'
+
+alias pacs='sudo pacman -S'
+alias pacss='sudo pacman -Ss'
+alias pacruns='sudo pacman -Runs'
+alias pacu='sudo pacman -Syu'
+
+alias g='git'
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+
+alias v='nvim'
+
+alias t='tmux'
+alias ta='tmux attach'
+alias tl='tmux list-sessions'
+alias tn='tmux new-session'
+
+alias tp='tmux_project'
