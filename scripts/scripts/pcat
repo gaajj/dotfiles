@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+show_structure=false
+
+# --- Parse arguments ---
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -s|--structure)
+      show_structure=true
+      shift
+      ;;
+    -* )
+      echo "Unknown option: $1" >&2
+      echo "Usage: $(basename "$0") [-s|--structure]" >&2
+      exit 1
+      ;;
+    * )
+      echo "Unknown argument: $1" >&2
+      echo "Usage: $(basename "$0") [-s|--structure]" >&2
+      exit 1
+      ;;
+  esac
+done
+
+# --- Find .pcat in current directory ---
+pcat_file=".pcat"
+if [[ ! -f "$pcat_file" ]]; then
+  echo "Error: '$pcat_file' not found in $(pwd)" >&2
+  exit 1
+fi
+
+# --- Detect clipboard tool ---
+if command -v wl-copy &>/dev/null; then
+  CLIP_CMD="wl-copy"
+elif command -v clipman &>/dev/null; then
+  CLIP_CMD="clipman store"
+elif command -v xclip &>/dev/null; then
+  CLIP_CMD="xclip -selection clipboard"
+elif command -v xsel &>/dev/null; then
+  CLIP_CMD="xsel --clipboard --input"
+else
+  echo "Error: no clipboard tool found (install wl-clipboard, clipman, xclip, or xsel)." >&2
+  exit 1
+fi
+
+# --- Build file list from .pcat ---
+# Format: one path per line, relative to repo root, # comments allowed
+mapfile -t entries < <(sed -e 's/#.*$//' -e 's/[[:space:]]*$//' "$pcat_file" | grep -v '^[[:space:]]*$')
+
+if [[ ${#entries[@]} -eq 0 ]]; then
+  echo "Error: '$pcat_file' has no entries" >&2
+  exit 1
+fi
+
+# --- Resolve paths to files ---
+files=()
+for entry in "${entries[@]}"; do
+  if [[ -d "$entry" ]]; then
+    while IFS= read -r -d '' f; do
+      files+=("$f")
+    done < <(find "$entry" -type f -print0)
+  elif [[ -f "$entry" ]]; then
+    files+=("$entry")
+  else
+    echo "Warning: '$entry' does not exist, skipping" >&2
+  fi
+done
+
+if [[ ${#files[@]} -eq 0 ]]; then
+  echo "Error: no files found from '$pcat_file'" >&2
+  exit 1
+fi
+
+# --- De-duplicate and sort ---
+IFS=$'\n' read -r -d '' -a files_sorted < <(printf '%s\n' "${files[@]}" | sort -u && printf '\0')
+
+# --- Generate output ---
+{
+  if $show_structure; then
+    if command -v eza &>/dev/null; then
+      echo "=== DIRECTORY STRUCTURE: $(pwd) ==="
+      eza --tree --icons=always
+      echo
+      echo "=== FILE CONTENTS ==="
+    else
+      echo "Warning: eza not found, skipping structure listing." >&2
+    fi
+  fi
+
+  for f in "${files_sorted[@]}"; do
+    echo "=== START $f ==="
+    cat "$f"
+    echo "=== END $f ==="
+    echo
+  done
+} | eval "$CLIP_CMD"
+
+echo "✅ Copied contents using: $CLIP_CMD"
