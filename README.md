@@ -31,3 +31,19 @@ ln -s ~dotfiles/nvim/.config/nvim ~/.config/nvim
 ## Notes
 
 - Terminal stack: `Hyprland -> Kitty -> tmux -> zsh`
+
+## Previews
+
+### Fuzzel Menus
+
+<img src="images/bluetooth-menu.png" width="45%">
+<img src="images/power-menu.png" width="45%">
+<img src="images/clipboard.png" width="45%">
+
+### Tmux
+
+<img src="images/tmux.png" width="45%">
+
+### NeoVim
+
+<img src="images/neovim.png" width="45%">
