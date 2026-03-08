@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+entry=$(cliphist list | fuzzel --dmenu \
+    --prompt "Clipboard: " \
+    --lines 16 \
+    --width 80 \
+    --with-nth 2)
+
+[ -z "$entry" ] && exit
+
+echo "$entry" | cliphist decode | wl-copy

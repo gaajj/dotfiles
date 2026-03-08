@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+if bluetoothctl show | grep -q "Discovering: yes"; then
+    scan_icon="󰂯  Scanning..."
+else
+    scan_icon="󰂲  Start Scan"
+fi
+
+if bluetoothctl show | grep -q "Powered: yes"; then
+    status_icon="󰂯  Disable Bluetooth"
+else
+    status_icon="󰂲  Enable Bluetooth"
+fi
+
+menu="   Refresh
+$status_icon
+$scan_icon"
+
+devices=$(bluetoothctl devices | sed 's/Device //')
+connected=$(bluetoothctl devices Connected | awk '{print $2}')
+paired=$(bluetoothctl devices Paired | awk '{print $2}')
+
+device_list=""
+while read -r line; do
+    mac=$(echo "$line" | awk '{print $1}')
+    name=$(echo "$line" | cut -d' ' -f2-)
+
+    if echo "$connected" | grep -q "$mac"; then
+        icon="󰂯"
+    elif echo "$paired" | grep -q "$mac"; then
+        icon="󰂱"
+    else
+        icon="󰂲"
+    fi
+
+    device_list="$device_list
+$(printf "%s %-28s (%s)" "$icon" "$name" "$mac")"
+
+done <<< "$devices"
+
+choice=$(printf "%s\n%s\n" "$menu" "$device_list" | fuzzel --dmenu \
+    --prompt "Bluetooth" \
+    --lines 12 \
+    --width 47)
+
+[ -z "$choice" ] && exit
+
+case "$choice" in
+    *"Start Scan"*|*"Stop Scan"*)
+        if ! bluetoothctl show |  grep -q "Discovering: yes"; then
+            bluetoothctl --timeout 15 scan on &
+            notify-send "Bluetooth" "Scan started"
+        fi
+        exec "$0"
+        ;;
+    *"Enable Bluetooth"*|*"Disable Bluetooth"*)
+        if bluetoothctl show | grep -q "Powered: yes"; then
+            bluetoothctl power off
+        else
+            bluetoothctl power on
+        fi
+        exec "$0"
+        ;;
+    *"Refresh"*)
+        exec "$0"
+        ;;
+    *)
+        mac=$(echo "$choice" | awk '{print $2}')
+
+        if bluetoothctl info "$mac" | grep -q "Connected: yes"; then
+            bluetoothctl disconnect "$mac"
+        else 
+            bluetoothctl connect "$mac"
+        fi
+        ;;
+esac
