@@ -9,9 +9,9 @@ options="  Shutdown
 choice=$(printf "%s\n" "$options" | fuzzel --dmenu --lines 5 --width 15 --prompt "⏻ ")
 
 case "$choice" in
-Shutdown) systemctl poweroff ;;
-Reboot) systemctl reboot ;;
-Suspend) systemctl suspend ;;
-Logout) hyprctl dispatch exit ;;
-Lock) hyprlock ;;
+    *Shutdown*) systemctl poweroff ;;
+    *Reboot*) systemctl reboot ;;
+    *Suspend*) systemctl suspend ;;
+    *Logout*) hyprctl dispatch exit ;;
+    *Lock*) hyprlock ;;
 esac
