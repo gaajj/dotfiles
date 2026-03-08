@@ -26,9 +26,9 @@ while read -r line; do
     name=$(echo "$line" | cut -d' ' -f2-)
 
     if echo "$connected" | grep -q "$mac"; then
-        icon="󰂯"
-    elif echo "$paired" | grep -q "$mac"; then
         icon="󰂱"
+    elif echo "$paired" | grep -q "$mac"; then
+        icon="󰂯"
     else
         icon="󰂲"
     fi
@@ -65,7 +65,7 @@ case "$choice" in
         exec "$0"
         ;;
     *)
-        mac=$(echo "$choice" | awk '{print $2}')
+        mac=$(echo "$choice" | grep -oE '([0-9A-F]{2}:){5}[0-9A-F]{2}')
 
         if bluetoothctl info "$mac" | grep -q "Connected: yes"; then
             bluetoothctl disconnect "$mac"
