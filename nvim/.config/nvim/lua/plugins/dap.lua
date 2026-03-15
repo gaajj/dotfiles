@@ -1,104 +1,62 @@
 return {
-	{
-		'mfussenegger/nvim-dap',
-		dependencies = {
-			'nvim-neotest/nvim-nio',
-			{
-				'rcarriga/nvim-dap-ui',
-				opts = {},
-				config = function(_, opts)
-					local dap = require('dap')
-					local dapui = require('dapui')
-					dapui.setup(opts)
+  {
+    "mfussenegger/nvim-dap",
+    keys = {
+      { "<leader>db", function() require("dap").toggle_breakpoint() end,                                    desc = "Toggle breakpoint" },
+      { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Conditional breakpoint" },
+      { "<leader>dc", function() require("dap").continue() end,                                             desc = "Continue / Start" },
+      { "<leader>di", function() require("dap").step_into() end,                                            desc = "Step into" },
+      { "<leader>do", function() require("dap").step_over() end,                                            desc = "Step over" },
+      { "<leader>dO", function() require("dap").step_out() end,                                             desc = "Step out" },
+      { "<leader>dr", function() require("dap").repl.toggle() end,                                          desc = "Toggle REPL" },
+      { "<leader>dl", function() require("dap").run_last() end,                                             desc = "Run last" },
+      { "<leader>dt", function() require("dap").terminate() end,                                            desc = "Terminate" },
+    },
+    dependencies = {
+      "rcarriga/nvim-dap-ui",
+      "nvim-neotest/nvim-nio",
+      "jay-babu/mason-nvim-dap.nvim",
+    },
+    config = function()
+      local dap = require("dap")
+      local dapui = require("dapui")
 
-					dap.listeners.after.event_initialized['dapui'] = function()
-						dapui.open()
-					end
-					dap.listeners.before.event_terminated['dapui'] = function()
-						dapui.close()
-					end
-					dap.listeners.before.event_exited['dapui'] = function()
-						dapui.close()
-					end
-				end,
-			},
-		},
+      require("mason-nvim-dap").setup({
+        ensure_installed = { "js", "codelldb", "javadbg" },
+        automatic_installation = true,
+        handlers = {},
+      })
 
-		keys = {
-			-- TODO: set actual binds when i do decide to use breaking points
-			{
-				'<F5>',
-				function()
-					require('dap').continue()
-				end,
-				desc = 'DAP: Continue',
-			},
-			{
-				'<F10>',
-				function()
-					require('dap').step_over()
-				end,
-				desc = 'DAP: Step Over',
-			},
-			{
-				'<F11>',
-				function()
-					require('dap').step_into()
-				end,
-				desc = 'DAP: Step Into',
-			},
-			{
-				'<F12>',
-				function()
-					require('dap').step_out()
-				end,
-				desc = 'DAP: Step Out',
-			},
+      dapui.setup({
+        icons = { expanded = "▾", collapsed = "▸", current_frame = "*" },
+        layouts = {
+          {
+            elements = {
+              { id = "scopes",      size = 0.25 },
+              { id = "breakpoints", size = 0.25 },
+              { id = "stacks",      size = 0.25 },
+              { id = "watches",     size = 0.25 },
+            },
+            position = "left",
+            size = 40,
+          },
+          {
+            elements = {
+              { id = "repl",    size = 0.5 },
+              { id = "console", size = 0.5 },
+            },
+            position = "bottom",
+            size = 10,
+          },
+        },
+      })
 
-			{
-				'<leader>bb',
-				function()
-					require('dap').toggle_breakpoint()
-				end,
-				desc = 'Toggle Breakpoint',
-			},
-			{
-				'<leader>bB',
-				function()
-					require('dap').set_breakpoint(vim.fn.input('Condition: '))
-				end,
-				desc = 'Conditional Breakpoint',
-			},
-			{
-				'<leader>bl',
-				function()
-					require('dap').set_breakpoint(nil, nil, vim.fn.input('Log: '))
-				end,
-				desc = 'Log Breakpoint',
-			},
+      -- auto open/close dap ui
+      dap.listeners.after.event_initialized["dapui_config"] = dapui.open
+      dap.listeners.before.event_terminated["dapui_config"] = dapui.close
+      dap.listeners.before.event_exited["dapui_config"] = dapui.close
 
-			{
-				'<leader>br',
-				function()
-					require('dap').restart()
-				end,
-				desc = 'Restart',
-			},
-			{
-				'<leader>bq',
-				function()
-					require('dap').terminate()
-				end,
-				desc = 'Terminate',
-			},
-
-			{
-				'<leader>bu',
-				function()
-					require('dapui').toggle()
-				end,
-				desc = 'Toggle UI',
-			},
-		},
-	},
+      vim.keymap.set("n", "<leader>du", dapui.toggle, { desc = "Toggle DAP UI" })
+    end,
+  },
 }

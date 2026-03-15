@@ -1,72 +1,55 @@
 return {
-	{
-		'ibhagwan/fzf-lua',
-		dependencies = { 'nvim-tree/nvim-web-devicons' },
+  {
+    "ibhagwan/fzf-lua",
+    cmd = "FzfLua",
+    keys = {
+      -- find
+      { "<leader>ff",       "<cmd>FzfLua files<cr>",                 desc = "Find files" },
+      { "<leader>fg",       "<cmd>FzfLua live_grep<cr>",             desc = "Live grep" },
+      { "<leader>fw",       "<cmd>FzfLua grep_cword<cr>",            desc = "Grep word under cursor" },
+      { "<leader>fb",       "<cmd>FzfLua buffers<cr>",               desc = "Find buffers" },
+      { "<leader>fh",       "<cmd>FzfLua helptags<cr>",              desc = "Find help tags" },
+      { "<leader>fr",       "<cmd>FzfLua oldfiles<cr>",              desc = "Recent files" },
+      { "<leader>fc",       "<cmd>FzfLua commands<cr>",              desc = "Commands" },
+      { "<leader>fk",       "<cmd>FzfLua keymaps<cr>",               desc = "Keymaps" },
 
-		config = function(_, opts)
-			local fzf = require('fzf-lua')
-			fzf.setup(opts)
-			fzf.register_ui_select()
-		end,
+      -- LSP via fzf
+      { "<leader>fs",       "<cmd>FzfLua lsp_document_symbols<cr>",  desc = "Document symbols" },
+      { "<leader>fS",       "<cmd>FzfLua lsp_workspace_symbols<cr>", desc = "Workspace symbols" },
+      { "<leader>fd",       "<cmd>FzfLua diagnostics_document<cr>",  desc = "Document diagnostics" },
+      { "<leader>fD",       "<cmd>FzfLua diagnostics_workspace<cr>", desc = "Workspace diagnostics" },
 
-		opts = {
-			winopts = {
-				height = 0.60,
-				width = 0.60,
-				row = 0.40,
-				preview = {
-					layout = 'flex',
-				},
-			},
-			keymap = {
-				builtin = {
-					['<C-u>'] = 'preview-page-up',
-					['<C-d>'] = 'preview-page-down',
-				},
-				fzf = {
-					['ctrl-u'] = 'preview-page-up',
-					['ctrl-d'] = 'preview-page-down',
-					['ctrl-q'] = 'select-all+accept',
-					['ctrl-e'] = 'abort',
-				},
-			},
-			git = {
-				status = {
-					actions = {
-						['ctrl-l'] = {
-							fn = function(...)
-								require('fzf-lua.actions').git_unstage(...)
-							end,
-							reload = true,
-						},
-						['ctrl-h'] = {
-							fn = function(...)
-								require('fzf-lua.actions').git_stage(...)
-							end,
-							reload = true,
-						},
-						['ctrl-c'] = {
-							fn = function()
-								vim.cmd('Git commit')
-							end,
-							reload = false,
-						},
-					},
-				},
-			},
-		},
+      -- git
+      { "<leader>gc",       "<cmd>FzfLua git_commits<cr>",           desc = "Git commits" },
+      { "<leader>gs",       "<cmd>FzfLua git_status<cr>",            desc = "Git status" },
+      { "<leader>gb",       "<cmd>FzfLua git_branches<cr>",          desc = "Git branches" },
 
-		keys = {
-			{ '<leader>ff', '<cmd>FzfLua files<cr>', desc = 'Find Files' },
-			{ '<leader>fg', '<cmd>FzfLua live_grep<cr>', desc = 'Grep Project' },
-			{ '<leader>fb', '<cmd>FzfLua buffers<cr>', desc = 'Find Buffer' },
-			{ '<leader>fh', '<cmd>FzfLua help_tags<cr>', desc = 'Help Pages' },
-			{ '<leader>fs', '<cmd>FzfLua resume<cr>', desc = 'Resume Search' },
-			{ '<leader>fr', '<cmd>FzfLua oldfiles<cr>', desc = 'Recent Files' },
-			{ '<leader>fm', '<cmd>FzfLua keymaps<cr>', desc = 'Keymaps' },
-
-			{ '<leader>gl', '<cmd>FzfLua git_commits<cr>', desc = 'Git Log (fzf)' },
-			{ '<leader>gs', '<cmd>FzfLua git_status<cr>', desc = 'Git Status (fzf)' },
-		},
-	},
+      -- resume last search
+      { "<leader><leader>", "<cmd>FzfLua resume<cr>",                desc = "Resume last search" },
+    },
+    opts = {
+      "default-title",
+      winopts = {
+        height = 0.85,
+        width = 0.80,
+        row = 0.5,
+        col = 0.5,
+        preview = {
+          layout = "vertical",
+          vertical = "down:45%",
+        },
+      },
+      keymap = {
+        fzf = {
+          ["ctrl-q"] = "select-all+accept",
+        },
+      },
+      files = {
+        cwd_prompt = false,
+      },
+      grep = {
+        rg_opts = "--column --line-number --no-heading --color=always --smart-case",
+      },
+    },
+  },
 }

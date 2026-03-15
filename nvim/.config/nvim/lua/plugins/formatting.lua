@@ -1,40 +1,38 @@
 return {
-	{
-		'stevearc/conform.nvim',
-		event = { 'BufWritePre' },
-		cmd = { 'ConformInfo' },
-		keys = {
-			{
-				'<leader>ll',
-				function()
-					require('conform').format({ async = true, lsp_format = 'fallback' })
-				end,
-				mode = { 'n', 'v' },
-				desc = 'Format buffer',
-			},
-		},
-		opts = {
-			formatters_by_ft = {
-				lua = { 'stylua' },
-				json = { 'prettier' },
-				markdown = { 'prettier' },
-				ron = { 'fmtron' },
-				groovy = { 'prettier' },
-				java = { 'google-java-format' },
-				kotlin = { 'ktlint' },
-			},
-
-			formatters = {
-				fmtron = {
-					command = os.getenv('HOME') .. '/.cargo/bin/fmtron',
-					args = { '-d', '--input', '$FILENAME' },
-					stdin = false,
-				},
-			},
-
-			format_on_save = {
-				lsp_format = 'fallback',
-			},
-		},
-	},
+  {
+    "stevearc/conform.nvim",
+    event = "BufWritePre",
+    cmd = { "ConformInfo" },
+    keys = {
+      {
+        "<leader>cf",
+        function()
+          require("conform").format({ async = true, lsp_fallback = true })
+        end,
+        desc = "Format buffer",
+      },
+    },
+    opts = {
+      formatters_by_ft = {
+        javascript = { "prettierd", "prettier", stop_after_first = true },
+        typescript = { "prettierd", "prettier", stop_after_first = true },
+        javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+        typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+        html = { "prettierd", "prettier", stop_after_first = true },
+        css = { "prettierd", "prettier", stop_after_first = true },
+        json = { "prettierd", "prettier", stop_after_first = true },
+        yaml = { "prettierd", "prettier", stop_after_first = true },
+        markdown = { "prettierd", "prettier", stop_after_first = true },
+        rust = { "rustfmt" },
+        java = { "google-java-format" },
+        bash = { "shfmt" },
+        sh = { "shfmt" },
+        lua = { "stylua" },
+      },
+      format_on_save = {
+        timeout_ms = 3000,
+        lsp_fallback = true,
+      },
+    },
+  },
 }

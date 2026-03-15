@@ -1,110 +1,105 @@
 return {
-	{
-		'williamboman/mason.nvim',
-		cmd = 'Mason',
-		build = ':MasonUpdate',
-		opts = {},
-	},
+  {
+    "williamboman/mason.nvim",
+    cmd = "Mason",
+    opts = {},
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = {
+      "williamboman/mason.nvim",
+      "neovim/nvim-lspconfig",
+    },
+    opts = {
+      ensure_installed = {
+        "ts_ls",
+        "rust_analyzer",
+        "jdtls",
+        "bashls",
+        "html",
+        "cssls",
+        "lua_ls",
+        "jsonls",
+        "yamlls",
+        "tailwindcss",
+      },
+      automatic_enable = true,
+    },
+  },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    event = "VeryLazy",
+    opts = {
+      ensure_installed = {
+        -- formatters
+        "prettierd",
+        "stylua",
+        "shfmt",
+        "google-java-format",
+        -- linters
+        "eslint_d",
+        "shellcheck",
+        -- dap
+        "js-debug-adapter",
+        "java-debug-adapter",
+        "codelldb",
+      },
+      auto_update = true,
+      run_on_start = true,
+    },
+  },
+  {
+    "neovim/nvim-lspconfig",
+    event = { "BufReadPost", "BufNewFile" },
+    config = function()
+      -- server-specific settings
+      vim.lsp.config("lua_ls", {
+        settings = {
+          Lua = {
+            workspace = { checkThirdParty = false },
+            telemetry = { enable = false },
+            diagnostics = { globals = { "vim" } },
+          },
+        },
+      })
 
-	{
-		'WhoIsSethDaniel/mason-tool-installer.nvim',
-		dependencies = { 'williamboman/mason.nvim' },
-		opts = {
-			ensure_installed = {
-				'stylua',
-				'prettier',
-				'google-java-format',
-				'ktlint',
-			},
-		},
-	},
+      vim.diagnostic.config({
+        virtual_text = { spacing = 4, prefix = "●" },
+        float = { border = "rounded" },
+      })
 
-	{
-		'folke/lazydev.nvim',
-		ft = 'lua',
-		opts = {
-			library = {
-				{ path = 'luvit-meta/library', words = { 'vim%.uv' } },
-			},
-		},
-	},
-	{ 'Bilal2453/luvit-meta', lazy = true },
+      -- shared capabilities
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      local has_blink, blink = pcall(require, "blink.cmp")
+      if has_blink then
+        capabilities = blink.get_lsp_capabilities(capabilities)
+      end
+      vim.lsp.config("*", { capabilities = capabilities })
 
-	{
-		'neovim/nvim-lspconfig',
-		event = { 'BufReadPre', 'BufNewFile' },
-		dependencies = {
-			'williamboman/mason.nvim',
-			'williamboman/mason-lspconfig.nvim',
-			'saghen/blink.cmp',
-			'nvim-java/nvim-java',
-		},
-		config = function()
-			require('java').setup()
+      -- LSP keymaps on attach
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("lsp_keymaps", { clear = true }),
+        callback = function(event)
+          local map = function(keys, func, desc, mode)
+            mode = mode or "n"
+            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = desc })
+          end
 
-			local lspconfig = require('lspconfig')
-			local capabilities = require('blink.cmp').get_lsp_capabilities()
-
-			require('mason-lspconfig').setup({
-				-- NOTE: only LSP server names here — formatters (stylua, prettier, etc.)
-				-- must be installed separately via Mason or your system package manager.
-				ensure_installed = { 'lua_ls', 'gradle_ls', 'groovyls', 'kotlin_language_server' },
-				automatic_installation = true,
-
-				handlers = {
-					function(server_name)
-						lspconfig[server_name].setup({ capabilities = capabilities })
-					end,
-
-					['lua_ls'] = function()
-						lspconfig.lua_ls.setup({
-							capabilities = capabilities,
-							settings = {
-								Lua = {
-									completion = { callSnippet = 'Replace' },
-								},
-							},
-						})
-					end,
-				},
-			})
-
-			vim.diagnostic.config({
-				virtual_text = {
-					spacing = 4,
-					source = 'if_many',
-					prefix = '●',
-				},
-				signs = {
-					text = {
-						[vim.diagnostic.severity.ERROR] = ' ',
-						[vim.diagnostic.severity.WARN] = ' ',
-						[vim.diagnostic.severity.HINT] = ' ',
-						[vim.diagnostic.severity.INFO] = ' ',
-					},
-				},
-				underline = true,
-				update_in_insert = false,
-				severity_sort = true,
-			})
-
-			vim.api.nvim_create_autocmd('LspAttach', {
-				group = vim.api.nvim_create_augroup('lsp-keymaps', { clear = true }),
-				callback = function(event)
-					local map = function(keys, func, desc)
-						vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
-					end
-
-					map('gd', vim.lsp.buf.definition, 'Go to Definition')
-					map('gD', vim.lsp.buf.declaration, 'Go to Declaration')
-					map('gr', vim.lsp.buf.references, 'Go to References')
-					map('gi', vim.lsp.buf.implementation, 'Go to Implementation')
-					map('gy', vim.lsp.buf.type_definition, 'Go to Type Definition')
-					map('K', vim.lsp.buf.hover, 'Hover Documentation')
-					map('<leader>rn', vim.lsp.buf.rename, 'Rename Symbol')
-					map('<leader>ca', vim.lsp.buf.code_action, 'Code Action')
-				end,
-			})
-		end,
-	},
+          map("gd", vim.lsp.buf.definition, "Go to definition")
+          map("gD", vim.lsp.buf.declaration, "Go to declaration")
+          map("gr", vim.lsp.buf.references, "Go to references")
+          map("gi", vim.lsp.buf.implementation, "Go to implementation")
+          map("gy", vim.lsp.buf.type_definition, "Go to type definition")
+          map("K", function()
+            vim.lsp.buf.hover({ border = "rounded" })
+          end, "Hover documentation")
+          map("<leader>ca", vim.lsp.buf.code_action, "Code action", { "n", "v" })
+          map("<leader>cr", vim.lsp.buf.rename, "Rename symbol")
+          map("<leader>cs", vim.lsp.buf.signature_help, "Signature help")
+        end,
+      })
+    end,
+  },
 }

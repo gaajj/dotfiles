@@ -1,0 +1,63 @@
+return {
+  {
+    "akinsho/bufferline.nvim",
+    event = "VeryLazy",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    keys = {
+      { "<leader>bp", "<cmd>BufferLineTogglePin<cr>",    desc = "Pin buffer" },
+      { "<leader>bD", "<cmd>BufferLineCloseOthers<cr>",  desc = "Close other buffers" },
+      { "<leader>bc", "<cmd>bdelete<cr>",                desc = "Close current buffer" },
+      { "<leader>bh", "<cmd>BufferLineCloseRight<cr>",   desc = "Close buffers to the right" },
+      { "<leader>bl", "<cmd>BufferLineCloseLeft<cr>",    desc = "Close buffers to the left" },
+      { "<leader>bs", "<cmd>BufferLinePick<cr>",         desc = "Pick buffer (flash)" },
+      { "<S-h>",      "<cmd>BufferLineCyclePrev<cr>",    desc = "Previous buffer" },
+      { "<S-l>",      "<cmd>BufferLineCycleNext<cr>",    desc = "Next buffer" },
+      { "[b",         "<cmd>BufferLineMovePrev<cr>",     desc = "Move buffer left" },
+      { "]b",         "<cmd>BufferLineMoveNext<cr>",     desc = "Move buffer right" },
+      { "<leader>1",  "<cmd>BufferLineGoToBuffer 1<cr>", desc = "Buffer 1" },
+      { "<leader>2",  "<cmd>BufferLineGoToBuffer 2<cr>", desc = "Buffer 2" },
+      { "<leader>3",  "<cmd>BufferLineGoToBuffer 3<cr>", desc = "Buffer 3" },
+      { "<leader>4",  "<cmd>BufferLineGoToBuffer 4<cr>", desc = "Buffer 4" },
+      { "<leader>5",  "<cmd>BufferLineGoToBuffer 5<cr>", desc = "Buffer 5" },
+      { "<leader>6",  "<cmd>BufferLineGoToBuffer 6<cr>", desc = "Buffer 6" },
+      { "<leader>7",  "<cmd>BufferLineGoToBuffer 7<cr>", desc = "Buffer 7" },
+      { "<leader>8",  "<cmd>BufferLineGoToBuffer 8<cr>", desc = "Buffer 8" },
+      { "<leader>9",  "<cmd>BufferLineGoToBuffer 9<cr>", desc = "Buffer 9" },
+    },
+    opts = {
+      options = {
+        numbers = "ordinal",
+        diagnostics = "nvim_lsp",
+        diagnostics_indicator = function(count, level)
+          local icon = level:match("error") and " " or " "
+          return " " .. icon .. count
+        end,
+        close_command = "bdelete! %d",
+        right_mouse_command = "bdelete! %d",
+        left_mouse_command = "buffer %d",
+        middle_mouse_command = nil,
+        indicator = { style = "icon", icon = "▎" },
+        buffer_close_icon = "󰅖",
+        modified_icon = "●",
+        close_icon = "",
+        left_trunc_marker = "",
+        right_trunc_marker = "",
+        show_buffer_close_icons = true,
+        show_close_icon = false,
+        show_tab_indicators = true,
+        persist_buffer_sort = true,
+        separator_style = "thin",
+        enforce_regular_tabs = false,
+        always_show_bufferline = true,
+        offsets = {
+          {
+            filetype = "oil",
+            text = "File Explorer",
+            highlight = "Directory",
+            separator = true,
+          },
+        },
+      },
+    },
+  },
+}

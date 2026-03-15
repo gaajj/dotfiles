@@ -1,45 +1,55 @@
 return {
-	{
-		'saghen/blink.cmp',
-		version = '*',
-		event = 'InsertEnter',
-		dependencies = { 'rafamadriz/friendly-snippets' },
-
-		opts = {
-			keymap = {
-				preset = 'none',
-
-				['<Tab>'] = { 'select_next', 'select_and_accept', 'fallback' },
-				['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
-
-				['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-				['<C-e>'] = { 'hide' },
-
-				['<Up>'] = { 'select_prev', 'fallback' },
-				['<Down>'] = { 'select_next', 'fallback' },
-				['<C-k>'] = { 'select_prev', 'fallback' },
-				['<C-j>'] = { 'select_next', 'fallback' },
-
-				['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
-				['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
-			},
-
-			appearance = {
-				use_nvim_cmp_as_default = true,
-				nerd_font_variant = 'mono',
-			},
-
-			snippets = { preset = 'default' },
-
-			completion = {
-				list = { selection = { preselect = false, auto_insert = false } },
-			},
-
-			sources = {
-				default = { 'lsp', 'path', 'snippets', 'buffer' },
-			},
-
-			signature = { enabled = true },
-		},
-	},
+  {
+    "saghen/blink.cmp",
+    version = "1.*",
+    build = "cargo build --release",
+    event = "InsertEnter",
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+    },
+    opts = {
+      keymap = {
+        preset = "default",
+        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+        ["<C-e>"] = { "hide" },
+        ["<CR>"] = { "accept", "fallback" },
+        ["<Tab>"] = { "snippet_forward", "fallback" },
+        ["<S-Tab>"] = { "snippet_backward", "fallback" },
+        ["<C-n>"] = { "select_next", "fallback" },
+        ["<C-p>"] = { "select_prev", "fallback" },
+        ["<C-d>"] = { "scroll_documentation_down", "fallback" },
+        ["<C-u>"] = { "scroll_documentation_up", "fallback" },
+      },
+      appearance = {
+        nerd_font_variant = "mono",
+      },
+      completion = {
+        accept = { auto_brackets = { enabled = true } },
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 200,
+          window = { border = "rounded" },
+        },
+        menu = {
+          border = "rounded",
+          draw = {
+            columns = {
+              { "kind_icon" },
+              { "label",    "label_description", gap = 1 },
+              { "kind" },
+            },
+          },
+        },
+        list = {
+          selection = { preselect = true, auto_insert = false },
+        },
+      },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+      },
+      snippets = {
+        preset = "default",
+      },
+    },
+  },
 }
