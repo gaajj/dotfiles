@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+SEARCH_DIRS=("$HOME/projects")
+DEPTH=1
+
+if [ -n "$1" ]; then
+    selected="$1"
+else
+    selected=$(find "${SEARCH_DIRS[@]}" -mindepth 1 -maxdepth "$DEPTH" -type d 2>/dev/null \
+        | fzf --reverse --prompt="session > ")
+fi
+
+[ -z "$selected" ] && exit 0
+
+session_name=$(basename "$selected" | tr '.' '_')
+
+if [ -z "$TMUX" ]; then
+    tmux new-session -A -s "$session_name" -c "$selected"
+    exit 0
+fi
+
+if ! tmux has-session -t="$session_name" 2>/dev/null; then
+    tmux new-session -ds "$session_name" -c "$selected"
+fi
+
+tmux switch-client -t "$session_name"
+
