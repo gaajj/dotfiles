@@ -1,5 +1,0 @@
-#!/bin/bash
-
-SESSION="main"
-
-tmux attach-session -t $SESSION 2>/dev/null || tmux new-session -s $SESSION
