@@ -17,6 +17,7 @@ list_projects() {
     [[ -d "$expanded" ]] && find_args+=("$expanded")
   done
   [[ ${#find_args[@]} -eq 0 ]] && return
+    echo "$HOME"
   find "${find_args[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort -u
 }
 
@@ -67,6 +68,7 @@ else
   else
     selected="$choice"
     session_name=$(basename "$selected" | tr './ ' '___')
+    [[ "$selected" == "$HOME" ]] && session_name="main"
   fi
 fi
 
