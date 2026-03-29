@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+# tmux-sessionizer - fuzzy-find a project dir -> jump to/create a tmux session
+# Tab/Shift-Tab or Ctrl-H/L to toggle between [new] and [existing] sessions
+#
+# Usage: tmux-sessionizer [path]
+
+SEARCH_DIRS=(
+  ~/projects
+  ~/dev
+  ~
+)
+
+list_projects() {
+  find_args=()
+  for dir in "${SEARCH_DIRS[@]}"; do
+    expanded="$(eval echo "$dir")"
+    [[ -d "$expanded" ]] && find_args+=("$expanded")
+  done
+  [[ ${#find_args[@]} -eq 0 ]] && return
+  find "${find_args[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort -u
+}
+
+list_sessions() {
+  tmux list-sessions -F '#S: #{session_windows} windows (#{session_path})' 2>/dev/null
+}
+
+start_mode="new"
+[[ "$1" == "--existing" ]] && start_mode="existing"
+[[ "$1" == "--new" ]] && start_mode="new"
+
+if [[ $# -eq 1 && "$1" != --* ]]; then
+  selected="$1"
+  session_name=$(basename "$selected" | tr './ ' '___')
+else
+  mode="$start_mode"
+  while true; do
+    if [[ "$mode" == "new" ]]; then
+      result=$(list_projects | fzf \
+        --layout=reverse \
+        --prompt="new session> " \
+        --header="[tab] switch to existing sessions" \
+        --expect=tab,shift-tab,ctrl-h,ctrl-l)
+    else
+      result=$(list_sessions | fzf \
+        --layout=reverse \
+        --prompt="existing session> " \
+        --header="[tab] switch to new sessions" \
+        --expect=tab,shift-tab,ctrl-h,ctrl-l)
+    fi
+
+    key=$(head -1 <<< "$result")
+    choice=$(tail -1 <<< "$result")
+
+    if [[ "$key" =~ ^(tab|shift-tab|ctrl-h|ctrl-l)$ ]]; then
+      [[ "$mode" == "new" ]] && mode="existing" || mode="new"
+      continue
+    fi
+
+    break
+  done
+
+  [[ -z "$choice" ]] && exit 0
+
+  if [[ "$mode" == "existing" ]]; then
+    session_name="${choice%%:*}"
+    selected=""
+  else
+    selected="$choice"
+    session_name=$(basename "$selected" | tr './ ' '___')
+  fi
+fi
+
+
+# not inside tmux
+if [[ -z "$TMUX" ]]; then
+  if [[ -n "$selected" ]]; then
+    tmux new-session -A -s "$session_name" -c "$selected"
+  else
+    tmux attach -t "$session_name"
+  fi
+  exit 0
+fi
+
+# inside tmux
+if [[ -n "$selected" ]] && ! tmux has-session -t="$session_name" 2>/dev/null; then
+  tmux new-session -ds "$session_name" -c "$selected"
+fi
+tmux switch-client -t "$session_name"
