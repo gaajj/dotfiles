@@ -7,9 +7,10 @@ return {
     setup = function()
         local actions = require('telescope.actions')
         local builtin = require('telescope.builtin')
+        local themes = require('telescope.themes')
 
         require('telescope').setup({
-            defaults = {
+            defaults = themes.get_ivy({
                 file_ignore_patterns = { 'node_modules', '.git/' },
                 mappings = {
                     i = {
@@ -17,7 +18,7 @@ return {
                         ['<C-k>'] = actions.move_selection_previous,
                     },
                 },
-            },
+            }),
         })
 
         vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Find files' })

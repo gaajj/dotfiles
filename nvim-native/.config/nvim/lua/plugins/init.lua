@@ -10,6 +10,9 @@ local plugins = {
     'telescope',
     'conform',
     'whichkey',
+    'ufo',
+    'builtins',
+    'neoscroll',
 }
 
 for _, name in ipairs(plugins) do

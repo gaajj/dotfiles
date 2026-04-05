@@ -1,19 +1,16 @@
 local opt = vim.opt
 local g = vim.g
 
+-- leader
 g.mapleader = ' '
 g.maplocalleader = ' '
 
 -- ui
 opt.termguicolors = true
-opt.number = true
-opt.relativenumber = true
-opt.signcolumn = 'yes:1'
 opt.cursorline = true
 opt.showmode = false
 opt.laststatus = 3
 opt.colorcolumn = '80'
-opt.wrap = false
 opt.list = true
 opt.listchars = {
     tab = '» ',
@@ -22,8 +19,26 @@ opt.listchars = {
     extends = '›',
     precedes = '‹',
 }
+opt.fillchars = {
+    vert = '│',
+    fold = ' ',
+    foldopen = '',
+    foldsep = ' ',
+    foldclose = '',
+    foldinner = ' ',
+    msgsep = '‾',
+    diff = '╱',
+    eob = ' ',
+}
 
--- splits
+-- numbers & lines
+opt.number = true
+opt.relativenumber = true
+opt.signcolumn = 'yes:1'
+opt.wrap = false
+opt.breakindent = true
+
+-- splits & windows
 opt.splitright = true
 opt.splitbelow = true
 
@@ -36,31 +51,25 @@ opt.ignorecase = true
 opt.smartcase = true
 opt.inccommand = 'split'
 
--- indentation
+-- indentation & tabs
 opt.expandtab = true
-opt.autoindent = true
 opt.shiftwidth = 4
 opt.tabstop = 4
 opt.softtabstop = 4
 
--- completion
+-- completion & wildmenu
 opt.completeopt = 'menu,menuone,noselect'
 opt.wildmode = 'longest:full,full'
 
--- files
+-- files & undo
 opt.undofile = true
 opt.swapfile = false
-opt.backup = false
 opt.writebackup = false
 
--- folding (treesitter-based)
-opt.foldmethod = 'expr'
-opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-opt.foldenable = false
-opt.foldlevel = 99
-opt.foldlevelstart = 99
-
 -- misc
-opt.mouse = 'a'
 opt.clipboard = 'unnamedplus'
 opt.updatetime = 200
+opt.timeoutlen = 500
+opt.virtualedit = 'block'
+opt.spelllang = 'en_us'
+-- opt.shada = '!,"1000,<50,@100,/,s10,h'

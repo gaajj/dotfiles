@@ -13,14 +13,14 @@ eval "$(zoxide init zsh)"
 [ -f ~/.zsh_aliases ] && source ~/.zsh_aliases
 [ -f ~/.zsh_functions ] && source ~/.zsh_functions
 
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/scripts:$PATH"
+export PATH="$HOME/.local/bin:$PATH" # local binaries
+export PATH="$HOME/scripts:$PATH" # custom scripts
+export PATH="$HOME/.local/share/bob/nvim-bin:$PATH" # bob neovim version manager
 
 if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]]; then
   tmux new-session -A -s main && exit
 fi
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
