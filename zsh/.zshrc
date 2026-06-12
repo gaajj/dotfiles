@@ -67,3 +67,4 @@ export PATH="$HOME/.config/emacs/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$SDKMAN_DIR/candidates/java/current/bin:$PATH"
 export XDG_DATA_DIRS=$XDG_DATA_DIRS:/var/lib/flatpak/exports/share
+export PATH="$HOME/.cargo/bin:$PATH"
