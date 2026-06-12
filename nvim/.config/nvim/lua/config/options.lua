@@ -1,7 +1,7 @@
 local o = vim.opt
 
 o.number = true
-o.relativenumber =  true
+o.relativenumber = true
 
 o.tabstop = 2
 o.shiftwidth = 2
@@ -25,3 +25,5 @@ o.splitbelow = true
 o.clipboard = "unnamedplus"
 o.undofile = true
 o.swapfile = false
+
+o.winborder = "rounded"
