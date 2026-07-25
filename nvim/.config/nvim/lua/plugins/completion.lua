@@ -1,13 +1,8 @@
 return {
   {
     "saghen/blink.cmp",
-    dependencies = {
-      "saghen/blink.lib",
-      "rafamadriz/friendly-snippets",
-    },
-    build = function ()
-      require("blink.cmp").build():pwait()
-    end,
+    version = "1.*",
+    dependencies = { "rafamadriz/friendly-snippets", },
     opts = {
       keymap = {
         preset = "default",
@@ -17,7 +12,7 @@ return {
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
       },
-      fuzzy = { implementation = "rust" },
+      fuzzy = { implementation = "prefer_rust" },
     },
   },
 }

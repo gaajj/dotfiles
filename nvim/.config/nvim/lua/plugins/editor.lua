@@ -19,6 +19,7 @@ return {
     build = ":TSUpdate",
     config = function(_, opts)
       require("nvim-treesitter").setup()
+      require("nvim-treesitter").install({ "rust" })
     end,
   },
 
@@ -41,5 +42,11 @@ return {
       indent = { char = "│" },
       scope = { enabled = true },
     },
+  },
+
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+    opts = {},
   },
 }
